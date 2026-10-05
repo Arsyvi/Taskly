@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 
 //Route Auth
 Route::post('/register', [AuthController::class, 'register']);
@@ -14,4 +15,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 //Route User
 Route::get('/user', [AuthController::class, 'user']);
+
+//Route Task
+Route::apiResource('tasks', TaskController::class);
 });
