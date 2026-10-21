@@ -3,6 +3,7 @@
 *.log
 .vscode/
 .idea/
+PANDUAN-BELAJAR-TASKLY.md
 
 # Backend - Laravel
 backend/vendor/
