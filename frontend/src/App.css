@@ -725,7 +725,7 @@ main {
   flex-direction: column;
   flex: 1;
   width: auto;
-  min-width: 266px;
+  min-width: 262px;
 }
 
 .header-list {
