@@ -41,7 +41,7 @@ function Dashboard() {
       setDescription("");
       toast.success("Tugas Berhasil dibuat!");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal membuat task")
+      toast.error(error.response?.data?.message || "Gagal membuat task");
     } finally {
       setSubmitting(false);
     }
@@ -51,7 +51,7 @@ function Dashboard() {
     try {
       await toggleTask(task);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal mengubah status task")
+      toast.error(error.response?.data?.message || "Gagal mengubah status task");
     }
   }
 
@@ -60,27 +60,28 @@ function Dashboard() {
       await deleteTask(task.id);
       toast.success("Berhasil menghapus task");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Gagal menghapus task")
+      toast.error(error.response?.data?.message || "Gagal menghapus task");
     }
   }
 
   return (
     <>
-      <header>
+      <header style={{position: "sticky", top: 0}}>
         <Navbar />
       </header>
 
-      <main>
-        <h1>Selamat datang kembali, {user?.name}</h1>
-        {progress === 0 ? (
-          <p>Tidak ada tugas hari ini</p>
-        ) : (
-          <p>
-            {" "}
-            Ada {progress} tugas terjadwal hari ini. Dahulukan pekerjaan
-            berdampak tinggi{" "}
-          </p>
-        )}
+      <main className="dashboard-main">
+        <div className="dashboard-header">
+          <h1>Selamat datang kembali, {user?.name}</h1>
+          {progress === 0 ? (
+            <p>Tidak ada tugas hari ini</p>
+          ) : (
+            <p>
+              Ada {progress} tugas terjadwal hari ini. Dahulukan pekerjaan
+              berdampak tinggi
+            </p>
+          )}
+        </div>
 
         <div className="box-task">
           <div className="total-box">
@@ -93,9 +94,10 @@ function Dashboard() {
                 <Layers size={20} />
               </div>
             </div>
-            <span className="stat-number"> {total} </span>
+            <span className="stat-number">{total}</span>
             <hr />
           </div>
+
           <div className="progress-box">
             <div className="box-header">
               <div className="box-title">
@@ -107,7 +109,7 @@ function Dashboard() {
               </div>
             </div>
 
-            <span className="stat-number">{progress} </span>
+            <span className="stat-number">{progress}</span>
             <progress
               className="stat-progress"
               value={progress}
@@ -115,18 +117,19 @@ function Dashboard() {
               aria-label="Progres tugas berjalan"
             />
           </div>
+
           <div className="selesai-box">
             <div className="box-header">
               <div className="box-title">
                 <h1>Completed</h1>
-                <p>{selesai} tugas sudah kamu kerjakan </p>
+                <p>{selesai} tugas sudah kamu kerjakan</p>
               </div>
               <div className="box-icon-selesai">
                 <BadgeCheck size={20} />
               </div>
             </div>
 
-            <span className="stat-number">{selesai} </span>
+            <span className="stat-number">{selesai}</span>
             <progress
               className="stat-progress"
               value={selesai}
@@ -139,7 +142,7 @@ function Dashboard() {
         <div className="box-2">
           <form className="quick-add" onSubmit={handleAdd} method="post">
             <div className="header-form">
-              <CircleCheck className="icon-header" size={55} />
+              <CircleCheck className="icon-header" size={48} />
               <div className="title-header">
                 <h1>Quick Add</h1>
                 <p>Bikin tugas baru secara instant</p>
@@ -175,16 +178,16 @@ function Dashboard() {
                 />
               ) : (
                 <span>
-                  {" "}
-                  <CirclePlus size={20} /> Buat Task{" "}
+                  <CirclePlus size={20} /> Buat Task
                 </span>
               )}
             </button>
           </form>
+
           <div className="list-task">
             <div className="header-list">
               <h2>List Tugas</h2>
-              <span> {total > 5 ? `${total} + ` : `${total}`} </span>
+              <span>{total > 5 ? `${total}+` : `${total}`}</span>
             </div>
             <div className="task-content">
               {loading ? (
@@ -212,29 +215,26 @@ function Dashboard() {
                     key={task.id}
                   >
                     <div className="task-header">
-                      <h3>{task.title} </h3>
-                      {task.is_completed ? (
-                        <span
-                          className={`task-status ${task.is_completed ? "completed" : "active"}`}
-                        >
-                          Completed
-                        </span>
-                      ) : (
-                        <span
-                          className={`task-status ${task.is_completed ? "completed" : "active"}`}
-                        >
-                          Active
-                        </span>
-                      )}
+                      <h3>{task.title}</h3>
+                      <span
+                        className={`task-status ${task.is_completed ? "completed" : "active"}`}
+                      >
+                        {task.is_completed ? "Completed" : "Active"}
+                      </span>
                     </div>
                     <section className="content">
                       <div className="task-description">
-                        <p> {task.description} </p>
+                        <p>{task.description}</p>
                       </div>
                       <div className="btn-action">
                         <button
                           onClick={() => handleToggle(task)}
                           className={`${task.is_completed ? "btn-completed" : "btn-markCompleted"}`}
+                          aria-label={
+                            task.is_completed
+                              ? `Tandai belum selesai: ${task.title}`
+                              : `Tandai selesai: ${task.title}`
+                          }
                         >
                           {task.is_completed ? (
                             <span>
@@ -242,14 +242,14 @@ function Dashboard() {
                             </span>
                           ) : (
                             <span>
-                              {" "}
-                              <CheckCheck size={18} /> Mark Complete{" "}
+                              <CheckCheck size={18} /> Mark Complete
                             </span>
                           )}
                         </button>
                         <button
                           onClick={() => handleDelete(task)}
                           className="btn-deleteTask"
+                          aria-label={`Hapus ${task.title}`}
                         >
                           <Trash size={18} />
                         </button>

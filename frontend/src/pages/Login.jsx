@@ -32,7 +32,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className="auth-page-wrapper">
       <main className="box-login">
         <div className="logo">
           <img src={logo} alt="Taskly Logo" />
@@ -49,7 +49,7 @@ export default function Login() {
           <div className="box-akun">
             <label htmlFor="akun">Akun atau Email</label>
             <div className="input-akun">
-              <User size={24} />
+              <User size={22} />
               <input
                 type="text"
                 name="akun"
@@ -72,7 +72,7 @@ export default function Login() {
             </label>
 
             <div className="input-password">
-              <LockKeyhole />
+              <LockKeyhole size={22} />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -87,8 +87,9 @@ export default function Login() {
                 type="button"
                 className="btn-mata"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
               >
-                {showPassword ? <Eye size={24} /> : <EyeOff size={24} />}
+                {showPassword ? <Eye size={22} /> : <EyeOff size={22} />}
               </button>
             </div>
 
@@ -101,7 +102,7 @@ export default function Login() {
                 />
               ) : (
                 <span>
-                  Login <ArrowRight />{" "}
+                  Login <ArrowRight size={18} />
                 </span>
               )}
             </button>
@@ -115,6 +116,6 @@ export default function Login() {
           </Link>
         </p>
       </main>
-    </>
+    </div>
   );
 }
