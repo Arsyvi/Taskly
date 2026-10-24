@@ -724,7 +724,8 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 326px;
+  width: auto;
+  min-width: 286px;
 }
 
 .header-list {
@@ -913,7 +914,8 @@ main {
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 326px;
+  width: auto;
+  min-width: 286px;
   gap: 10px;
 }
 
