@@ -39,7 +39,7 @@ function Dashboard() {
       await addTask(title, description);
       setTitle("");
       setDescription("");
-      toast.success("Task Berhasil dibuat!");
+      toast.success("Tugas Berhasil dibuat!");
     } catch (error) {
       toast.error(error.response?.data?.message || "Gagal membuat task")
     } finally {
@@ -66,7 +66,7 @@ function Dashboard() {
 
   return (
     <>
-      <header className="navbar">
+      <header>
         <Navbar />
       </header>
 
@@ -184,7 +184,7 @@ function Dashboard() {
           <div className="list-task">
             <div className="header-list">
               <h2>List Tugas</h2>
-              <span> {total > 5 ? `${total} +` : `${total}`} </span>
+              <span> {total > 5 ? `${total} + ` : `${total}`} </span>
             </div>
             <div className="task-content">
               {loading ? (

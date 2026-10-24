@@ -40,10 +40,15 @@ export function useTasks() {
         }
     },[])
 
+    const editTask = useCallback( async(id, data)=> {
+        const response = await api.patch(`/tasks/${id}`, data)
+        setTasks((prev)=> replaceInList(prev, response.data.task))
+    },[])
+
     const deleteTask = useCallback( async(id)=> {
         await api.delete(`/tasks/${id}`)
         setTasks((prev)=> prev.filter((t)=> t.id !== id))
     },[])
 
-    return {tasks, fetchTasks, addTask, toggleTask, deleteTask, loading, error}
+    return {tasks, fetchTasks, addTask, toggleTask, deleteTask, editTask, loading, error}
 }
