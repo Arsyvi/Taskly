@@ -724,7 +724,7 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 0;
+  min-width: 326px;
 }
 
 .header-list {
@@ -913,7 +913,7 @@ main {
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 0;
+  min-width: 326px;
   gap: 10px;
 }
 
@@ -956,7 +956,7 @@ main {
 
 .task-description {
   flex: 1;
-  min-width: 0;
+  min-width: 300px;
 }
 
 .task-description p {
@@ -1092,6 +1092,9 @@ main {
   border-radius: var(--radius-card);
   border: 1px dashed var(--color-border-subtle);
   text-align: center;
+  width: auto;
+  width: auto;
+  min-width: 346px;
 }
 
 .loading-task h4 {
