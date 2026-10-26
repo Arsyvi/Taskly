@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "https://taskly-production-2b88.up.railway.app/api",
+    baseURL: import.meta.env.VITE_API_URL ?? "https://taskly-production-2b88.up.railway.app/api",
     headers: {
         Accept: "application/json",
         "Content-Type" : "application/json"
