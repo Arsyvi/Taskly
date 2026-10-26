@@ -31,16 +31,7 @@ Repo ini berisi dua bagian:
 | --- | --- |
 | Frontend | React 19, Vite 8, React Router 7, Axios, react-hot-toast, lucide-react |
 | Backend | Laravel 11, Laravel Sanctum 4, PHP 8.3 |
-| Database | SQLite (default), bisa diganti MySQL atau PostgreSQL lewat `.env` |
-| Deploy | Vercel atau Netlify untuk frontend, Railway untuk backend |
-
-## Alur autentikasi
-
-1. `POST /api/register` atau `POST /api/login` mengembalikan data `user` dan `token`.
-2. Token disimpan di `localStorage`.
-3. Interceptor Axios menambahkan header `Authorization: Bearer <token>` ke setiap request.
-4. Saat halaman di-refresh, `AuthProvider` memanggil `GET /api/user`. Selama proses ini, `ProtectedRoute` menampilkan layar "Memeriksa sesi kamu".
-5. Kalau token kedaluwarsa atau ditolak, token dihapus dan user diarahkan ke `/login`.
+| Database | MySql |
 
 ## Struktur
 
@@ -60,7 +51,7 @@ Taskly/
     └── vercel.json
 ```
 
-## Menjalankan di lokal
+## Kebutuhan
 
 Kebutuhan: Node.js 20+, PHP 8.3+, dan Composer.
 
@@ -76,10 +67,6 @@ php artisan migrate
 php artisan serve
 ```
 
-Di Windows, ganti `cp` dengan `copy` dan `touch` dengan `type nul > database\database.sqlite`.
-
-API berjalan di `http://127.0.0.1:8000`. Secara default `.env.example` memakai SQLite. Kalau mau pakai MySQL, ubah `DB_CONNECTION` dan variabel `DB_*` sebelum migrate.
-
 ### Frontend
 
 ```bash
@@ -87,34 +74,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-Vite biasanya membuka `http://localhost:5173`.
-
-Untuk memakai backend lokal, buat `frontend/.env.local`:
-
-```env
-VITE_API_URL=http://127.0.0.1:8000/api
-```
-
-Restart dev server setelah mengubah env. Tanpa file ini, frontend memakai URL API Railway yang terpasang sebagai default.
-
-## Endpoint API
-
-Semua endpoint di bawah ini memakai prefix `/api`. Endpoint dengan tanda auth butuh header `Authorization: Bearer <token>`.
-
-| Method | Endpoint | Auth | Keterangan |
-| --- | --- | --- | --- |
-| POST | `/register` | Tidak | Daftar akun, balas `user` dan `token` |
-| POST | `/login` | Tidak | Login pakai nama atau email |
-| GET | `/user` | Ya | Data user yang sedang login |
-| POST | `/logout` | Ya | Hapus token yang sedang dipakai |
-| GET | `/tasks` | Ya | Semua task milik user |
-| POST | `/tasks` | Ya | Buat task baru |
-| GET | `/tasks/{id}` | Ya | Detail satu task |
-| PATCH | `/tasks/{id}` | Ya | Update judul, deskripsi, atau status |
-| DELETE | `/tasks/{id}` | Ya | Hapus task |
-
-Task yang bukan milik user yang login akan dibalas 404, termasuk untuk detail, update, dan delete.
 
 ## Script
 
@@ -127,32 +86,3 @@ Task yang bukan milik user yang login akan dibalas 404, termasuk untuk detail, u
 | `php artisan serve` | `backend/` | Jalankan API lokal |
 | `php artisan migrate` | `backend/` | Jalankan migrasi database |
 
-## Deploy
-
-Frontend ini SPA, jadi host harus mengarahkan semua rute ke `index.html`. Tanpa aturan itu, refresh di `/dashboard` akan menghasilkan 404 dari host sebelum React sempat jalan.
-
-**Vercel**
-
-- Root Directory: `frontend`
-- Framework Preset: Vite
-- Build Command: `npm run build`
-- Output Directory: `dist`
-
-`frontend/vercel.json` berisi rewrite ke `index.html`.
-
-**Netlify**
-
-- Base directory: `frontend`
-- Build command: `npm run build`
-- Publish directory: `dist`
-
-`frontend/public/_redirects` menangani fallback SPA dan ikut tersalin ke `dist` saat build.
-
-**Backend**
-
-Deploy Laravel ke host yang mendukung PHP, misalnya Railway. Isi `.env` produksi, jalankan `php artisan key:generate` dan `php artisan migrate`, lalu set `APP_URL` sesuai domain API. Setelah API hidup, isi `VITE_API_URL` di environment frontend dengan URL API produksi dan deploy ulang, karena Vite menanam nilai env saat build.
-
-## Catatan
-
-- Token disimpan di `localStorage`, jadi keamanannya bergantung pada tidak adanya XSS di aplikasi.
-- Pengecekan pemilik task dilakukan di backend lewat `user_id`, bukan hanya disembunyikan di tampilan.
