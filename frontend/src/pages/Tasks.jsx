@@ -147,7 +147,7 @@ function Tasks() {
 
   return (
     <>
-      <header>
+      <header style={{position : "sticky", top : 0, zIndex : 1000}}>
         <Navbar />
       </header>
 

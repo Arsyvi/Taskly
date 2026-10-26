@@ -66,7 +66,7 @@ function Dashboard() {
 
   return (
     <>
-      <header style={{position: "sticky", top: 0}}>
+      <header style={{position: "sticky", top: 0, zIndex : 1000}}>
         <Navbar />
       </header>
 
