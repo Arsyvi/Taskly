@@ -12,8 +12,6 @@ export default defineConfig({
         name: 'Taskly',
         short_name: 'Taskly',
         description: 'Simple task management app',
-        theme_color: '#0EA5C9',
-        background_color: '#0F172A',
         display: 'standalone',
         start_url: '/',
         icons: [
