@@ -38,6 +38,7 @@ function Tasks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const titleRef = useRef(null);
 
+
   const total = tasks.length;
   const selesai = tasks.filter((task) => task.is_completed).length;
   const progress = total - selesai;

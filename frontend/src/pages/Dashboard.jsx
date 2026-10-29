@@ -30,7 +30,7 @@ function Dashboard() {
   const total = tasks.length;
   const selesai = tasks.filter((task) => task.is_completed).length;
   const progress = total - selesai;
-  const preview = tasks.slice(0, 5);
+  const preview = tasks.filter((task)=> !task.is_completed).slice(0, 5)
 
   async function handleAdd(e) {
     e.preventDefault();
